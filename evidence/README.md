@@ -1,56 +1,56 @@
-# Evidence summary
+# Tổng hợp bằng chứng
 
-Student: Nguyen Chi Hieu (`2A202601931`)
+Sinh viên: Nguyễn Chí Hiếu (`2A202601931`)
 
-## Runtime configuration
+## Cấu hình chạy
 
-- LLM provider: Groq OpenAI-compatible API
-- LLM model: `openai/gpt-oss-120b`
-- API key strategy: round-robin rotation across 7 Groq keys with failover
-- Embeddings: local Ollama `nomic-embed-text` (768 dimensions)
+- Nhà cung cấp LLM: Groq qua API tương thích OpenAI
+- Mô hình LLM: `openai/gpt-oss-120b`
+- Chiến lược API key: xoay vòng 7 key Groq và tự chuyển key khi gặp giới hạn
+- Embeddings: Ollama local với `nomic-embed-text` (768 chiều)
 - LangSmith project: `pr-drab-increase-11`
-- Prompt Hub names:
+- Tên prompt trên Prompt Hub:
   - `nguyen-chi-hieu-2a202601931-rag-v1`
   - `nguyen-chi-hieu-2a202601931-rag-v2`
 
-## Trace verification
+## Xác minh traces
 
-The LangSmith API verification after the full run returned:
+Kết quả kiểm tra qua LangSmith API sau khi chạy đầy đủ:
 
 - `rag-query`: 51 root runs
 - `ab-rag-query`: 101 root runs
-- Total root runs in the project: 359
+- Tổng số root runs trong project: 359
 
-The two required tasks therefore contribute 152 root traces, exceeding the
-minimum requirement of 100 combined traces.
+Hai nhiệm vụ bắt buộc đã tạo tổng cộng 152 root traces, vượt yêu cầu tối
+thiểu 100 traces.
 
-## RAGAS comparison
+## So sánh kết quả RAGAS
 
-| Metric | Prompt V1 | Prompt V2 | Higher result |
+| Chỉ số | Prompt V1 | Prompt V2 | Kết quả cao hơn |
 |---|---:|---:|---|
 | Faithfulness | 0.9375 | 0.8209 | V1 |
 | Answer relevancy | 0.8716 | 0.8734 | V2 |
-| Context recall | 0.9800 | 0.9800 | Tie |
+| Context recall | 0.9800 | 0.9800 | Hòa |
 | Context precision | 0.9083 | 0.9117 | V2 |
 
-V1 is substantially more faithful because its concise instruction limits
-unnecessary elaboration beyond the retrieved context. V2 is slightly better
-on answer relevancy and context precision because its structured expert style
-organizes the retrieved facts more explicitly. Both variants exceed the
-required faithfulness threshold of 0.8; V1 also exceeds the 0.9 bonus target.
+V1 có faithfulness cao hơn rõ rệt vì chỉ dẫn trả lời ngắn gọn giúp hạn chế
+việc diễn giải thêm ngoài context được truy xuất. V2 nhỉnh hơn một chút ở
+answer relevancy và context precision vì phong cách chuyên gia có cấu trúc
+giúp tổ chức các dữ kiện rõ ràng hơn. Cả hai phiên bản đều vượt ngưỡng
+faithfulness 0.8; V1 đồng thời vượt ngưỡng điểm thưởng 0.9.
 
-## Required evidence files
+## Các tệp bằng chứng bắt buộc
 
-- `01_langsmith_traces.png`: capture manually from LangSmith after filtering
-  root runs to `rag-query` and `ab-rag-query`.
-- `02_prompt_hub.png`: capture manually from Prompt Hub with both prompt names
-  visible.
-- `02_ab_routing_log.txt`: generated from the full 50-query A/B run.
-- `03_ragas_scores.png`: capture manually by displaying the saved JSON scores
-  in a terminal.
-- `03_ragas_report.json`: generated automatically by Task 3.
-- `04_pii_demo_log.txt`: generated from all six PII cases.
-- `04_json_demo_log.txt`: generated from all five JSON cases.
+- `01_langsmith_traces.png`: chụp thủ công trên LangSmith sau khi lọc root
+  runs theo tên `rag-query` và `ab-rag-query`.
+- `02_prompt_hub.png`: chụp thủ công trên Prompt Hub, bảo đảm cả hai tên
+  prompt cùng xuất hiện trong ảnh.
+- `02_ab_routing_log.txt`: đã sinh từ lần chạy A/B đầy đủ 50 câu hỏi.
+- `03_ragas_scores.png`: chụp thủ công cửa sổ terminal đang hiển thị bảng
+  điểm RAGAS đã lưu.
+- `03_ragas_report.json`: đã được Task 3 tự động tạo.
+- `04_pii_demo_log.txt`: đã sinh từ sáu trường hợp kiểm thử PII.
+- `04_json_demo_log.txt`: đã sinh từ năm trường hợp kiểm thử JSON.
 
-The three PNG files must be screenshots of the real UI/terminal and are not
-generated synthetically.
+Ba tệp PNG phải là ảnh chụp giao diện hoặc terminal thật, không được tạo giả
+lập bằng chương trình.

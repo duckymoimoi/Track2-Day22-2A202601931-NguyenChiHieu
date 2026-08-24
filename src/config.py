@@ -26,7 +26,7 @@ _langsmith_endpoint = os.getenv("LANGSMITH_ENDPOINT") or os.getenv(
     "LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com"
 )
 
-# Keep both the current LANGSMITH_* names and legacy LANGCHAIN_* aliases.
+# Giữ cả tên LANGSMITH_* hiện tại và alias LANGCHAIN_* của phiên bản cũ.
 os.environ["LANGCHAIN_TRACING_V2"] = os.getenv("LANGCHAIN_TRACING_V2", "true")
 os.environ["LANGSMITH_TRACING"]    = os.getenv("LANGSMITH_TRACING", "true")
 os.environ["LANGCHAIN_API_KEY"]    = _langsmith_key
@@ -45,7 +45,8 @@ EMBEDDING_PROVIDER = os.getenv(
     "EMBEDDING_PROVIDER", "ollama" if PROVIDER == "groq" else PROVIDER
 ).lower()
 
-# Groq exposes an OpenAI-compatible endpoint. Rotate all seven configured keys.
+# Groq cung cấp endpoint tương thích OpenAI. Nếu có nhiều key trong .env thật,
+# chương trình sẽ tự động xoay vòng; file mẫu chỉ cần khai báo một key.
 GROQ_API_KEYS = tuple(
     value
     for name in ["GROQ_API_KEY", *[f"GROQ_API_KEY_{i}" for i in range(2, 8)]]

@@ -22,7 +22,7 @@ import config
 
 
 class RotatingGroqChatModel(BaseChatModel):
-    """Groq chat model that rotates keys and fails over on rate limits."""
+    """Mô hình Groq tự xoay key và chuyển key khi gặp giới hạn request."""
 
     model_name: str = config.GROQ_MODEL
     temperature: float = 0.0

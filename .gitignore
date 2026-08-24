@@ -26,4 +26,4 @@ env/
 # macOS
 .DS_Store
 
-# Lab output required by the rubric; keep data/ragas_report.json tracked.
+# Báo cáo này là đầu ra bắt buộc theo rubric nên cần được Git theo dõi.
